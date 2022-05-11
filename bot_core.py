@@ -2,9 +2,16 @@ import discord
 import asyncio
 import API_Token
 import cogs
+import power_hour
+from time import sleep
 from discord.ext import commands
 
 
+sleep(5)
+asyncio.run(powerhour('powerhour'))
+
+
+'''
 class MyCli(discord.Client):
 
 	async def on_ready(self):
@@ -29,3 +36,4 @@ if __name__ == "__main__":
 	#bot = commands.Bot(command_prefix='$')
 	#bot.get_cog(Power_Hour(bot))
 	bot.run(api)
+'''
