@@ -79,4 +79,7 @@ async def exit(ctx):
     sys.exit(0)
     return
 
-bot.run(api)
+
+def run_bot():
+    global api
+    bot.run(api)
