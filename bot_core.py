@@ -3,7 +3,7 @@ import asyncio
 import sys
 import API_Token
 import deck as card_deck
-import power_hour
+import bot_command_logic as core
 from time import sleep
 from discord.ext import commands
 
@@ -14,7 +14,7 @@ if __name__ == '__main__':
 	deck.shuffle_deck()
 	print(deck)
 	try:
-		power_hour.run_bot()
+		core.run_bot()
 	except KeyboardInterrupt:
 		sys.exit(0)
 
