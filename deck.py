@@ -65,8 +65,3 @@ class Deck:
    	#Will print the entire deck
     def __str__(self):
     	return f'{self.cards}'
-
-deck = Deck()
-print(f'Unshuffled {deck}')
-deck.shuffle_deck()
-print(f'Shuffled {deck}')
