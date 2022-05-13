@@ -65,3 +65,6 @@ class Deck:
    	#Will print the entire deck
     def __str__(self):
     	return f'{self.cards}'
+
+    def __len__(self):
+    	return len(self.cards)
