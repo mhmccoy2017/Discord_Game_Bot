@@ -22,7 +22,7 @@ async def on_ready():
     "I'm here to chew ass and kick gum. I'm all out of gum",
     "Oh it's you guys :/",
     "WHO HAS AWAKEN ME?"]
-    await bot.get_channel(937473926244753490).send(f'{random.choice(hello)}')
+    await bot.get_channel(894728500265775174).send(f'{random.choice(hello)}')
 
 @bot.event
 async def on_message(message): 
@@ -30,10 +30,18 @@ async def on_message(message):
         return 
     if message.content == "gay":
         await message.channel.send('no you')
+    if message.content.lower() == 'hello there':
+        await message.channel.send("General Kenobi")
+    if message.content.lower() == 'no you':
+        await message.channel.send(f"{message.author.mention} a bitch")
+    if message.content.lower() == 'fuck you':
+        await message.channel.send("You're just made I banged your mom")
     if message.content.lower() == "general kenobi":
         await message.channel.send("So uncivilized")
-    if message.content.lower() == 'hey':
-        await message.channel.send("Hey")
+    if message.content.lower() == 'hey' or message.content.lower() == 'hi':
+        await message.channel.send(f'Hey {message.author.mention}')
+    if message.content.lower() == 'date me':
+        await message.channel.send(f"Sorry I'm already taken :/")
     print(message.content)
 
     await bot.process_commands(message)
@@ -55,7 +63,7 @@ async def powerhour(ctx, arg, duration: typing.Optional[int] = 60):
         for i in range(int(duration)):
             if powerhour_end:
                 break
-            sleep(10)
+            sleep(60)
             print(powerhour_end)
             await ctx.send(f'DRINK!')
             minutes_made += 1
