@@ -8,13 +8,16 @@ import deck as card_deck
 from time import sleep
 from discord.ext import commands
 
+DEBUG = True
 bot = commands.Bot(command_prefix='!')
 api = API_Token.bot_api().token
 powerhour_end = False
 deck = card_deck.Deck()
+ride_deck = card_deck.Deck()
 
 @bot.event
 async def on_ready():
+    global DEBUG
     print(f'{bot.user} has successfully logged in')
     hello = ["Hey boys", "I'm in", 
     "Hello there", 
@@ -22,7 +25,11 @@ async def on_ready():
     "I'm here to chew ass and kick gum. I'm all out of gum",
     "Oh it's you guys :/",
     "WHO HAS AWAKEN ME?"]
-    await bot.get_channel(894728500265775174).send(f'{random.choice(hello)}')
+    #Checking if the debug is true and if so connect to the develop channel, if not then connect to the prod channel
+    if DEBUG:
+        await bot.get_channel(API_Token.bot_api().devchannel).send(f'{random.choice(hello)}')
+    else:    
+        await bot.get_channel(API_Token.bot_api().prodchannel).send(f'{random.choice(hello)}')
 
 @bot.event
 async def on_message(message): 
@@ -122,6 +129,15 @@ async def kingscup(ctx, arg = 'pull'):
     if arg.lower() == 'restart' or arg.lower() == 'reset':
         deck = card_deck.Deck()
         deck.shuffle_deck()
+        await ctx.send(f'New deck made and shuffled!')
+
+@bot.command()
+async def ridethebus(ctx, arg):
+    global ride_deck
+    #Checking if the card deck has been asked to be reset by the players
+    if arg.lower() == 'restart' or arg.lower() == 'reset':
+        ride_deck = card_deck.Deck()
+        ride_deck.shuffle_deck()
         await ctx.send(f'New deck made and shuffled!')
 
 @bot.command()
