@@ -131,7 +131,7 @@ async def kingscup(ctx, arg = 'pull'):
         deck.shuffle_deck()
         await ctx.send(f'New deck made and shuffled!')
 
-@bot.command()
+@bot.command(name = 'Ride the Bus')
 async def ridethebus(ctx, arg):
     global ride_deck
     #Checking if the card deck has been asked to be reset by the players
@@ -139,6 +139,16 @@ async def ridethebus(ctx, arg):
         ride_deck = card_deck.Deck()
         ride_deck.shuffle_deck()
         await ctx.send(f'New deck made and shuffled!')
+    '''
+    Need to create the first half of the game, might be worth adding code logic to secondary file
+    Have players interact with buttons for high low, I/O, Color, Suit
+    Save their hands of four cards and create the pyramid
+    distrubte the drinks as they come from pryamid
+    Elminate matching cards from players hand
+    player with the most cards after that has to ride the bus with a new deck
+    They play the first game till they get all the way through
+    Restart the game
+    '''
 
 @bot.command()
 async def exit(ctx):
