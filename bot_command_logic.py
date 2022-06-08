@@ -4,6 +4,8 @@ import API_Token
 import sys
 import typing 
 import random 
+import ride_the_bus as rtb
+import player as pl
 import deck as card_deck
 from time import sleep
 from discord.ext import commands
@@ -14,6 +16,13 @@ api = API_Token.bot_api().token
 powerhour_end = False
 deck = card_deck.Deck()
 ride_deck = card_deck.Deck()
+currplayers = []
+greetings = ["Hello", "Sex?", 
+"Hello there", 
+"Sup", 
+"Lol, how's it.",
+"how's it going",
+"Yo"]
 
 @bot.event
 async def on_ready():
@@ -33,6 +42,7 @@ async def on_ready():
 
 @bot.event
 async def on_message(message): 
+    global greetings
     if message.author == bot.user:
         return 
     if message.content == "gay":
@@ -47,8 +57,12 @@ async def on_message(message):
         await message.channel.send("So uncivilized")
     if message.content.lower() == 'hey' or message.content.lower() == 'hi':
         await message.channel.send(f'Hey {message.author.mention}')
+    if message.content.lower() == 'hello':
+        await message.channel.send(f'{random.choice(greetings)}')
     if message.content.lower() == 'date me':
         await message.channel.send(f"Sorry I'm already taken :/")
+    if message.content.lower() == 'maga':
+        await message.channel.send(f"It's YHUGE, in terms of smaller things")
     print(message.content)
 
     await bot.process_commands(message)
@@ -131,14 +145,26 @@ async def kingscup(ctx, arg = 'pull'):
         deck.shuffle_deck()
         await ctx.send(f'New deck made and shuffled!')
 
-@bot.command(name = 'Ride the Bus')
-async def ridethebus(ctx, arg):
+@bot.command()
+async def ridethebus(ctx, arg = 'start'):
     global ride_deck
+    global currplayers
+    game_active = False
     #Checking if the card deck has been asked to be reset by the players
     if arg.lower() == 'restart' or arg.lower() == 'reset':
         ride_deck = card_deck.Deck()
         ride_deck.shuffle_deck()
         await ctx.send(f'New deck made and shuffled!')
+    if arg.lower() == 'start':
+        '''Start of the game loop'''
+        game_active = True
+        ride_deck = card_deck.Deck()
+        ride_deck.shuffle_deck()
+        await ctx.send(f'Starting a new game everyone get in the drunk bus!')
+        '''Init the players of the game who is everyone in the channel'''
+        while game_active:
+            await ctx.send(f'If you are playing please type !ridethebus playing')
+            await rtb.playing(ctx, arg)
     '''
     Need to create the first half of the game, might be worth adding code logic to secondary file
     Have players interact with buttons for high low, I/O, Color, Suit
