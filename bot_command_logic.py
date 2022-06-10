@@ -1,14 +1,14 @@
+import sys
 import discord
 import asyncio
-import API_Token
-import sys
 import typing 
 import random 
+from discord.ext import commands
+from time import sleep
+import API_Token
 import ride_the_bus as rtb
 import player as pl
 import deck as card_deck
-from time import sleep
-from discord.ext import commands
 
 DEBUG = True
 bot = commands.Bot(command_prefix='!')
@@ -60,15 +60,24 @@ async def on_message(message):
     if message.content.lower() == 'hello':
         await message.channel.send(f'{random.choice(greetings)}')
     if message.content.lower() == 'date me':
-        await message.channel.send(f"Sorry I'm already taken :/")
+        await message.channel.send("Sorry I'm already taken :/")
     if message.content.lower() == 'maga':
-        await message.channel.send(f"It's YHUGE, in terms of smaller things")
+        await message.channel.send("It's YHUGE, in terms of smaller things")
     print(message.content)
 
     await bot.process_commands(message)
 
+@bot.command(help = 'Displays the read me to see the rules and general use')
+async def readme(ctx):
+    '''
+    This will print the readme.md to show the rules and usage of each game
+    Takes no args
+    Returns nothing
+    '''
+    with open('README.md') as f:
+        await ctx.send(f'{f.read()}')
 
-@bot.command()
+@bot.command(help = 'Drink every minute for duration input | default is 60 minutes')
 async def powerhour(ctx, arg, duration: typing.Optional[int] = 60):
     global powerhour_end
     if arg.isdigit():
@@ -79,27 +88,27 @@ async def powerhour(ctx, arg, duration: typing.Optional[int] = 60):
         print(f'Starting power hour game')
         await ctx.send(f'Starting power in 5 seconds, grab those drinks and get ready to drink for {duration} minutes')
         sleep(5)
-        await ctx.send(f'DRINK!')
+        await ctx.send('DRINK!')
         minutes_made = 0
         for i in range(int(duration)):
             if powerhour_end:
                 break
             sleep(60)
             print(powerhour_end)
-            await ctx.send(f'DRINK!')
+            await ctx.send('DRINK!')
             minutes_made += 1
         if powerhour_end:
             await ctx.send(f'Game has eneded you made it {minutes_made} minutes')
         else:
-            await ctx.send(f'Congrats you made it! Thats the game')
+            await ctx.send('Congrats you made it! Thats the game')
         return
     if arg.lower() == 'end':
         powerhour_end = True
-        print(f'Ending powerhour game')
+        print('Ending powerhour game')
         await ctx.send('Ending game')
         return
    
-@bot.command()
+@bot.command(help = 'Persistent game of Kings cup, pull will pull a new card, restart/reset will restart the game')
 async def kingscup(ctx, arg = 'pull'):
     rules = {2 : f"You. {ctx.message.author.mention} Pick someone", 3 : f"{ctx.message.author.mention} Drink", 4 : f"Everyone touch the floor",
     5 : f"Guys drink! Let's go boys.", 6 : f"Chicks! Ladies sip it up. (If there aren't any women then guys drink)",
@@ -143,7 +152,7 @@ async def kingscup(ctx, arg = 'pull'):
     if arg.lower() == 'restart' or arg.lower() == 'reset':
         deck = card_deck.Deck()
         deck.shuffle_deck()
-        await ctx.send(f'New deck made and shuffled!')
+        await ctx.send('New deck made and shuffled!')
 
 @bot.command()
 async def ridethebus(ctx, arg = 'start'):
@@ -154,16 +163,16 @@ async def ridethebus(ctx, arg = 'start'):
     if arg.lower() == 'restart' or arg.lower() == 'reset':
         ride_deck = card_deck.Deck()
         ride_deck.shuffle_deck()
-        await ctx.send(f'New deck made and shuffled!')
+        await ctx.send('New deck made and shuffled!')
     if arg.lower() == 'start':
         '''Start of the game loop'''
         game_active = True
         ride_deck = card_deck.Deck()
         ride_deck.shuffle_deck()
-        await ctx.send(f'Starting a new game everyone get in the drunk bus!')
+        await ctx.send('Starting a new game everyone get in the drunk bus!')
         '''Init the players of the game who is everyone in the channel'''
         while game_active:
-            await ctx.send(f'If you are playing please type !ridethebus playing')
+            await ctx.send('If you are playing please type !ridethebus playing')
             await rtb.playing(ctx, arg)
     '''
     Need to create the first half of the game, might be worth adding code logic to secondary file
