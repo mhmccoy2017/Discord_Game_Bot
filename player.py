@@ -15,5 +15,10 @@ class Player:
 		return self.member.name
 
 	def add_card(self, deck):
+		'''
+		Adds a popped card from the deck to players hand
+		Takes deck | Deck as an argument and adds to 
+		self.hand
+		'''
 		self.hand.append(deck.remove_card())
 		print(f'{self.hand}')
