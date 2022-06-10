@@ -7,7 +7,7 @@ Make user to update client ID and permissions in bot_command_logic.py
 Bot command prefix = '!'
 
 Games currently implimented. 
-Powerhour:
+Powerhour:   
   Callable via !powerhour start
   Optional Arugment of a positive INT for how long you want the game to run default 60 minutes
   Can end the game via !powerhour end at any point
