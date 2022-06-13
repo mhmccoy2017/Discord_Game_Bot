@@ -16,7 +16,7 @@ api = API_Token.bot_api().token
 powerhour_end = False
 deck = card_deck.Deck()
 ride_deck = card_deck.Deck()
-currplayers = []
+CURRPLAYERS = []
 greetings = ["Hello", "Sex?", 
 "Hello there", 
 "Sup", 
@@ -155,15 +155,19 @@ async def kingscup(ctx, arg = 'pull'):
         await ctx.send('New deck made and shuffled!')
 
 @bot.command()
-async def ridethebus(ctx, arg = 'start'):
+async def ridethebus(ctx, arg = 'info'):
     global ride_deck
-    global currplayers
+    global CURRPLAYERS
     game_active = False
+    #Setting up default to get the game set up
+    if arg.lower() == 'info':
+        await ctx.send('If you are playing please type !ridethebus playing, if youre ready type !ridethebus start')
     #Checking if the card deck has been asked to be reset by the players
     if arg.lower() == 'restart' or arg.lower() == 'reset':
         ride_deck = card_deck.Deck()
         ride_deck.shuffle_deck()
         await ctx.send('New deck made and shuffled!')
+    #Arg for starting the game
     if arg.lower() == 'start':
         '''Start of the game loop'''
         game_active = True
@@ -172,8 +176,13 @@ async def ridethebus(ctx, arg = 'start'):
         await ctx.send('Starting a new game everyone get in the drunk bus!')
         '''Init the players of the game who is everyone in the channel'''
         while game_active:
-            await ctx.send('If you are playing please type !ridethebus playing')
-            await rtb.playing(ctx, arg)
+            await ctx.send('Game is starting')
+            game_active = False
+    #Arg for when people want to play and adding their player object to global list
+    if arg.lower() == 'playing':
+        if ctx.message.author is not bot.user:
+            CURRPLAYERS.append(pl.Player(ctx.message.author))
+            await ctx.send(f'{ctx.message.author} is playing. Players {CURRPLAYERS}')
     '''
     Need to create the first half of the game, might be worth adding code logic to secondary file
     Have players interact with buttons for high low, I/O, Color, Suit

@@ -11,7 +11,7 @@ class Player:
 		self.hand = []
 		self.is_playing = False
 
-	def __str__(self):
+	def __repr__(self):
 		return self.member.name
 
 	def add_card(self, deck):
