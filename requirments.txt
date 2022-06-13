@@ -1,7 +1,0 @@
-# packages in environment at C:\Users\Mark\anaconda3\envs\drinking_games:
-#
-# Name                    Version                   Build  Channel
-async-timeout             3.0.1                    pypi_0    pypi
-ca-certificates           2022.4.26            haa95532_0  
-discord-py                1.7.3                    pypi_0    pypi
-typing-extensions         4.2.0                    pypi_0    pypi
