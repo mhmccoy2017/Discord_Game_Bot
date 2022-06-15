@@ -166,7 +166,8 @@ async def ridethebus(ctx, arg = 'info'):
     if arg.lower() == 'restart' or arg.lower() == 'reset':
         ride_deck = card_deck.Deck()
         ride_deck.shuffle_deck()
-        await ctx.send('New deck made and shuffled!')
+        CURRPLAYERS = []
+        await ctx.send('New deck made and shuffled! Everyone needs to say they are playing again')
     #Arg for starting the game
     if arg.lower() == 'start':
         '''Start of the game loop'''
