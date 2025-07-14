@@ -1,5 +1,5 @@
 # drunk_bot
-Discord Bot for the boys drinking habits
+Discord Bot for the boys to play drinking games with
 =======
 Run bot_core.py locally after connecting the bot to your discord server.
 Make user to update client ID and permissions in bot_command_logic.py
