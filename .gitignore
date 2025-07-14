@@ -1,2 +1,6 @@
 API_Token.py
 API_Token.py
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
